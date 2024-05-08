@@ -1,0 +1,56 @@
+﻿@model ExamEase.Models.ClassHubViewModel
+@using ExamEase.Resources
+@using ExamEase.CustomHelper
+@{
+    if (string.IsNullOrEmpty(Model.Id))
+    {
+        ViewBag.Title = $"{Resource.Add} {Resource.Class}";
+    }
+    else
+    {
+        ViewBag.Title = $"{Resource.Edit} {Resource.Class}";
+    }
+    Layout = "~/Views/Shared/_LayoutAfterLogin.cshtml";
+}
+
+
+    @using (Html.BeginForm("Edit", "ClassHub", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, null, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h3 class="card-title"></h3>
+               
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 mb-10">
+                        <div class="mb-3 text-break">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "form-label required fw600" })
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "invalid-message" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mb-3 text-break">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "form-label required fw600" })
+                                @CustomHelper.CustomDropDownList("IsActive",Model.ActiveInactiveSelectlist)
+                                @Html.HiddenFor(m=>m.ActiveInactiveSelectlist)
+                                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "invalid-message" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a type="button" class="btn  btn-secondary me-1" href="@Url.Action("index")">@Resource.BackToList</a>
+                <button type="submit" class="btn  btn-primary ">@Resource.Save</button>
+            </div>
+        </div>
+
+
+       
+    }

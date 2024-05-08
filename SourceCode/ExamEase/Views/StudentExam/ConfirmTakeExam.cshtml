@@ -1,0 +1,40 @@
+﻿@model ExamEase.Models.ExamViewModel
+@using ExamEase.Resources
+@{
+    ViewBag.Title = Resource.Exam;
+    ViewBag.ModuleName = Resource.Exam;
+    Layout = "~/Views/Shared/_LayoutAfterLogin.cshtml";
+}
+
+
+<div class="card mb-10">
+    <div class="card-body d-flex align-items-center p-0">
+        <div class="bg-white rounded p-10 shadow position-relative h-100 w-100">
+            <h2 class="fs-20 fw600 mb-4">@Resource.Readytostarttheexam</h2>
+        <p class="mb-4">@Resource.CannotReturnToPreviousQuestion</p>
+        <div class="mb-3 text-break">
+            <div>@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "fw600" }): @Model.Name</div>
+        </div>
+        <div class="mb-3 text-break">
+            <div>@Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "fw600" }): @Model.Duration (@Resource.Minutes)</div>
+        </div>
+        <div class="mb-3 text-break">
+            <div>@Html.LabelFor(model => model.TotalQuestions, htmlAttributes: new { @class = "fw600" }): @Model.TotalQuestions</div>
+        </div>
+    </div>
+    </div>
+</div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <a class="btn   btn-primary hover-boxshadow me-1" href="@Url.Action("takeexam","studentexam",new{eid =Model.Id, sId = Model.StudentId, num = 1 })">
+                @if (Model.AlreadyStarted == true)
+                {
+                    @Resource.ContinueExam
+                }
+                else
+                {
+                    @Resource.StartNow
+                }
+            </a>
+        </div>
+    </div>
